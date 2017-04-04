@@ -1,0 +1,6 @@
+framework module Pods_FloatingPlaceholderTextFieldTests {
+  umbrella header "Pods-FloatingPlaceholderTextFieldTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

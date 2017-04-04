@@ -1,0 +1,547 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8CA794781FCE4936C29C6C06 /* StandardFloatingPlaceholderViewStyling+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA79CD9A153566F319C9310 /* StandardFloatingPlaceholderViewStyling+Test.swift */; };
+		8CA79D7FC6E4DA6B1AE1818F /* FloatingPlaceholderViewGeometry+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA795D9E0BF4502813A3850 /* FloatingPlaceholderViewGeometry+Test.swift */; };
+		8CA79F334C03260F5539CCF9 /* FloatingPlaceholderTextFieldTests_lineHeightsSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA795446781F577403612C6 /* FloatingPlaceholderTextFieldTests_lineHeightsSet.swift */; };
+		9B12ECC91E5277D10051E117 /* FloatingPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B12ECC51E5277D10051E117 /* FloatingPlaceholderView.swift */; };
+		9B4F5C521E7D4D8E00991740 /* FloatingPlaceholderTextFieldTests_behaviourFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F5C511E7D4D8E00991740 /* FloatingPlaceholderTextFieldTests_behaviourFloat.swift */; };
+		9B4F5C541E7D4DF000991740 /* FloatingPlaceholderTextFieldTests_behaviourDisappear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F5C531E7D4DF000991740 /* FloatingPlaceholderTextFieldTests_behaviourDisappear.swift */; };
+		9B9F4A991E7D3C1F0061B1F1 /* FloatingPlaceholderViewGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F4A981E7D3C1F0061B1F1 /* FloatingPlaceholderViewGeometry.swift */; };
+		9BA858851E6A2A43002356D2 /* FloatingPlaceholderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA858841E6A2A43002356D2 /* FloatingPlaceholderTextField.swift */; };
+		9BACBC7C1E50830900AC0D5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BACBC7B1E50830900AC0D5F /* AppDelegate.swift */; };
+		9BACBC7E1E50830900AC0D5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BACBC7D1E50830900AC0D5F /* ViewController.swift */; };
+		9BACBC831E50830900AC0D5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BACBC821E50830900AC0D5F /* Assets.xcassets */; };
+		9BACBC861E50830900AC0D5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BACBC841E50830900AC0D5F /* LaunchScreen.storyboard */; };
+		9BACBC911E50830900AC0D5F /* FloatingPlaceholderTextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BACBC901E50830900AC0D5F /* FloatingPlaceholderTextFieldTests.swift */; };
+		9BC26AED1E7D23DA004A4645 /* FloatingPlaceholderViewStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC26AEC1E7D23DA004A4645 /* FloatingPlaceholderViewStyling.swift */; };
+		9BC26AF31E7D29BF004A4645 /* ShowcaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC26AEF1E7D29BF004A4645 /* ShowcaseTextField.swift */; };
+		9BCCA9511E943D9100C76716 /* StandardFloatingPlaceholderViewStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCCA9501E943D9100C76716 /* StandardFloatingPlaceholderViewStyling.swift */; };
+		FF85312EE4A5CAB4C809D60A /* Pods_FloatingPlaceholderTextFieldTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29155B91D3DA4F8C537302F1 /* Pods_FloatingPlaceholderTextFieldTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9BACBC8D1E50830900AC0D5F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9BACBC701E50830800AC0D5F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9BACBC771E50830800AC0D5F;
+			remoteInfo = FloatingPlaceholderTextField;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		29155B91D3DA4F8C537302F1 /* Pods_FloatingPlaceholderTextFieldTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FloatingPlaceholderTextFieldTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CA795446781F577403612C6 /* FloatingPlaceholderTextFieldTests_lineHeightsSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextFieldTests_lineHeightsSet.swift; sourceTree = "<group>"; };
+		8CA795D9E0BF4502813A3850 /* FloatingPlaceholderViewGeometry+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatingPlaceholderViewGeometry+Test.swift"; sourceTree = "<group>"; };
+		8CA79CD9A153566F319C9310 /* StandardFloatingPlaceholderViewStyling+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StandardFloatingPlaceholderViewStyling+Test.swift"; sourceTree = "<group>"; };
+		9B12ECC51E5277D10051E117 /* FloatingPlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderView.swift; sourceTree = "<group>"; };
+		9B4F5C511E7D4D8E00991740 /* FloatingPlaceholderTextFieldTests_behaviourFloat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextFieldTests_behaviourFloat.swift; sourceTree = "<group>"; };
+		9B4F5C531E7D4DF000991740 /* FloatingPlaceholderTextFieldTests_behaviourDisappear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextFieldTests_behaviourDisappear.swift; sourceTree = "<group>"; };
+		9B9F4A981E7D3C1F0061B1F1 /* FloatingPlaceholderViewGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderViewGeometry.swift; sourceTree = "<group>"; };
+		9BA858841E6A2A43002356D2 /* FloatingPlaceholderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextField.swift; sourceTree = "<group>"; };
+		9BACBC781E50830800AC0D5F /* FloatingPlaceholderTextField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FloatingPlaceholderTextField.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BACBC7B1E50830900AC0D5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9BACBC7D1E50830900AC0D5F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9BACBC821E50830900AC0D5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9BACBC851E50830900AC0D5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9BACBC871E50830900AC0D5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BACBC8C1E50830900AC0D5F /* FloatingPlaceholderTextFieldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloatingPlaceholderTextFieldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BACBC901E50830900AC0D5F /* FloatingPlaceholderTextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextFieldTests.swift; sourceTree = "<group>"; };
+		9BACBC921E50830900AC0D5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9BC26AEC1E7D23DA004A4645 /* FloatingPlaceholderViewStyling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderViewStyling.swift; sourceTree = "<group>"; };
+		9BC26AEF1E7D29BF004A4645 /* ShowcaseTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowcaseTextField.swift; sourceTree = "<group>"; };
+		9BCCA9501E943D9100C76716 /* StandardFloatingPlaceholderViewStyling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardFloatingPlaceholderViewStyling.swift; sourceTree = "<group>"; };
+		B03CD355DDD3B85F5ED0393E /* Pods-FloatingPlaceholderTextFieldTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FloatingPlaceholderTextFieldTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FloatingPlaceholderTextFieldTests/Pods-FloatingPlaceholderTextFieldTests.release.xcconfig"; sourceTree = "<group>"; };
+		C41693C9EACC4721201CE126 /* Pods-FloatingPlaceholderTextFieldTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FloatingPlaceholderTextFieldTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FloatingPlaceholderTextFieldTests/Pods-FloatingPlaceholderTextFieldTests.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9BACBC751E50830800AC0D5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BACBC891E50830900AC0D5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF85312EE4A5CAB4C809D60A /* Pods_FloatingPlaceholderTextFieldTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		41086D95727B7DC6B924AF49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29155B91D3DA4F8C537302F1 /* Pods_FloatingPlaceholderTextFieldTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		903D522691BDB0A89CBB8792 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C41693C9EACC4721201CE126 /* Pods-FloatingPlaceholderTextFieldTests.debug.xcconfig */,
+				B03CD355DDD3B85F5ED0393E /* Pods-FloatingPlaceholderTextFieldTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9B12ECC41E5277BF0051E117 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				9BA858841E6A2A43002356D2 /* FloatingPlaceholderTextField.swift */,
+				9B12ECC51E5277D10051E117 /* FloatingPlaceholderView.swift */,
+				9B9F4A981E7D3C1F0061B1F1 /* FloatingPlaceholderViewGeometry.swift */,
+				9BC26AEC1E7D23DA004A4645 /* FloatingPlaceholderViewStyling.swift */,
+				9BCCA9501E943D9100C76716 /* StandardFloatingPlaceholderViewStyling.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		9BACBC6F1E50830800AC0D5F = {
+			isa = PBXGroup;
+			children = (
+				9BACBC7A1E50830800AC0D5F /* FloatingPlaceholderTextField */,
+				9BACBC8F1E50830900AC0D5F /* FloatingPlaceholderTextFieldTests */,
+				9BACBC791E50830800AC0D5F /* Products */,
+				903D522691BDB0A89CBB8792 /* Pods */,
+				41086D95727B7DC6B924AF49 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		9BACBC791E50830800AC0D5F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9BACBC781E50830800AC0D5F /* FloatingPlaceholderTextField.app */,
+				9BACBC8C1E50830900AC0D5F /* FloatingPlaceholderTextFieldTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9BACBC7A1E50830800AC0D5F /* FloatingPlaceholderTextField */ = {
+			isa = PBXGroup;
+			children = (
+				9B12ECC41E5277BF0051E117 /* Library */,
+				9BACBC7B1E50830900AC0D5F /* AppDelegate.swift */,
+				9BACBC821E50830900AC0D5F /* Assets.xcassets */,
+				9BACBC871E50830900AC0D5F /* Info.plist */,
+				9BACBC841E50830900AC0D5F /* LaunchScreen.storyboard */,
+				9BC26AEF1E7D29BF004A4645 /* ShowcaseTextField.swift */,
+				9BACBC7D1E50830900AC0D5F /* ViewController.swift */,
+			);
+			path = FloatingPlaceholderTextField;
+			sourceTree = "<group>";
+		};
+		9BACBC8F1E50830900AC0D5F /* FloatingPlaceholderTextFieldTests */ = {
+			isa = PBXGroup;
+			children = (
+				9BACBC901E50830900AC0D5F /* FloatingPlaceholderTextFieldTests.swift */,
+				9B4F5C511E7D4D8E00991740 /* FloatingPlaceholderTextFieldTests_behaviourFloat.swift */,
+				9B4F5C531E7D4DF000991740 /* FloatingPlaceholderTextFieldTests_behaviourDisappear.swift */,
+				9BACBC921E50830900AC0D5F /* Info.plist */,
+				8CA79CD9A153566F319C9310 /* StandardFloatingPlaceholderViewStyling+Test.swift */,
+				8CA795D9E0BF4502813A3850 /* FloatingPlaceholderViewGeometry+Test.swift */,
+				8CA795446781F577403612C6 /* FloatingPlaceholderTextFieldTests_lineHeightsSet.swift */,
+			);
+			path = FloatingPlaceholderTextFieldTests;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9BACBC771E50830800AC0D5F /* FloatingPlaceholderTextField */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BACBC951E50830900AC0D5F /* Build configuration list for PBXNativeTarget "FloatingPlaceholderTextField" */;
+			buildPhases = (
+				9BACBC741E50830800AC0D5F /* Sources */,
+				9BACBC751E50830800AC0D5F /* Frameworks */,
+				9BACBC761E50830800AC0D5F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FloatingPlaceholderTextField;
+			productName = FloatingPlaceholderTextField;
+			productReference = 9BACBC781E50830800AC0D5F /* FloatingPlaceholderTextField.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9BACBC8B1E50830900AC0D5F /* FloatingPlaceholderTextFieldTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9BACBC981E50830900AC0D5F /* Build configuration list for PBXNativeTarget "FloatingPlaceholderTextFieldTests" */;
+			buildPhases = (
+				93023C8CFAB7C1AE78A7FE94 /* [CP] Check Pods Manifest.lock */,
+				9BACBC881E50830900AC0D5F /* Sources */,
+				9BACBC891E50830900AC0D5F /* Frameworks */,
+				9BACBC8A1E50830900AC0D5F /* Resources */,
+				3C713E44EBE7DEE96F372E4F /* [CP] Embed Pods Frameworks */,
+				C121A7543837EC879298FE85 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9BACBC8E1E50830900AC0D5F /* PBXTargetDependency */,
+			);
+			name = FloatingPlaceholderTextFieldTests;
+			productName = FloatingPlaceholderTextFieldTests;
+			productReference = 9BACBC8C1E50830900AC0D5F /* FloatingPlaceholderTextFieldTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9BACBC701E50830800AC0D5F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = Transferwise;
+				TargetAttributes = {
+					9BACBC771E50830800AC0D5F = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Manual;
+					};
+					9BACBC8B1E50830900AC0D5F = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Manual;
+						TestTargetID = 9BACBC771E50830800AC0D5F;
+					};
+				};
+			};
+			buildConfigurationList = 9BACBC731E50830800AC0D5F /* Build configuration list for PBXProject "FloatingPlaceholderTextField" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9BACBC6F1E50830800AC0D5F;
+			productRefGroup = 9BACBC791E50830800AC0D5F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9BACBC771E50830800AC0D5F /* FloatingPlaceholderTextField */,
+				9BACBC8B1E50830900AC0D5F /* FloatingPlaceholderTextFieldTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9BACBC761E50830800AC0D5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BACBC861E50830900AC0D5F /* LaunchScreen.storyboard in Resources */,
+				9BACBC831E50830900AC0D5F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BACBC8A1E50830900AC0D5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3C713E44EBE7DEE96F372E4F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FloatingPlaceholderTextFieldTests/Pods-FloatingPlaceholderTextFieldTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		93023C8CFAB7C1AE78A7FE94 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C121A7543837EC879298FE85 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FloatingPlaceholderTextFieldTests/Pods-FloatingPlaceholderTextFieldTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9BACBC741E50830800AC0D5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B12ECC91E5277D10051E117 /* FloatingPlaceholderView.swift in Sources */,
+				9BCCA9511E943D9100C76716 /* StandardFloatingPlaceholderViewStyling.swift in Sources */,
+				9B9F4A991E7D3C1F0061B1F1 /* FloatingPlaceholderViewGeometry.swift in Sources */,
+				9BA858851E6A2A43002356D2 /* FloatingPlaceholderTextField.swift in Sources */,
+				9BC26AF31E7D29BF004A4645 /* ShowcaseTextField.swift in Sources */,
+				9BACBC7E1E50830900AC0D5F /* ViewController.swift in Sources */,
+				9BACBC7C1E50830900AC0D5F /* AppDelegate.swift in Sources */,
+				9BC26AED1E7D23DA004A4645 /* FloatingPlaceholderViewStyling.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BACBC881E50830900AC0D5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B4F5C521E7D4D8E00991740 /* FloatingPlaceholderTextFieldTests_behaviourFloat.swift in Sources */,
+				9BACBC911E50830900AC0D5F /* FloatingPlaceholderTextFieldTests.swift in Sources */,
+				9B4F5C541E7D4DF000991740 /* FloatingPlaceholderTextFieldTests_behaviourDisappear.swift in Sources */,
+				8CA794781FCE4936C29C6C06 /* StandardFloatingPlaceholderViewStyling+Test.swift in Sources */,
+				8CA79D7FC6E4DA6B1AE1818F /* FloatingPlaceholderViewGeometry+Test.swift in Sources */,
+				8CA79F334C03260F5539CCF9 /* FloatingPlaceholderTextFieldTests_lineHeightsSet.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9BACBC8E1E50830900AC0D5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9BACBC771E50830800AC0D5F /* FloatingPlaceholderTextField */;
+			targetProxy = 9BACBC8D1E50830900AC0D5F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9BACBC841E50830900AC0D5F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9BACBC851E50830900AC0D5F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9BACBC931E50830900AC0D5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9BACBC941E50830900AC0D5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9BACBC961E50830900AC0D5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = FloatingPlaceholderTextField/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.transferwise.FloatingPlaceholderTextField;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		9BACBC971E50830900AC0D5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = FloatingPlaceholderTextField/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.transferwise.FloatingPlaceholderTextField;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		9BACBC991E50830900AC0D5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C41693C9EACC4721201CE126 /* Pods-FloatingPlaceholderTextFieldTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = FloatingPlaceholderTextFieldTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.transferwise.FloatingPlaceholderTextFieldTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FloatingPlaceholderTextField.app/FloatingPlaceholderTextField";
+			};
+			name = Debug;
+		};
+		9BACBC9A1E50830900AC0D5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B03CD355DDD3B85F5ED0393E /* Pods-FloatingPlaceholderTextFieldTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = FloatingPlaceholderTextFieldTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.transferwise.FloatingPlaceholderTextFieldTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FloatingPlaceholderTextField.app/FloatingPlaceholderTextField";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9BACBC731E50830800AC0D5F /* Build configuration list for PBXProject "FloatingPlaceholderTextField" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BACBC931E50830900AC0D5F /* Debug */,
+				9BACBC941E50830900AC0D5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9BACBC951E50830900AC0D5F /* Build configuration list for PBXNativeTarget "FloatingPlaceholderTextField" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BACBC961E50830900AC0D5F /* Debug */,
+				9BACBC971E50830900AC0D5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9BACBC981E50830900AC0D5F /* Build configuration list for PBXNativeTarget "FloatingPlaceholderTextFieldTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9BACBC991E50830900AC0D5F /* Debug */,
+				9BACBC9A1E50830900AC0D5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9BACBC701E50830800AC0D5F /* Project object */;
+}
