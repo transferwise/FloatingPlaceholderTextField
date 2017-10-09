@@ -67,6 +67,7 @@ open class FloatingPlaceholderTextField: UITextField {
 
     // MARK: - UIResponder
 
+    @discardableResult
     open override func becomeFirstResponder() -> Bool {
         let result = super.becomeFirstResponder()
         if result {
@@ -75,6 +76,7 @@ open class FloatingPlaceholderTextField: UITextField {
         return result
     }
 
+    @discardableResult
     open override func resignFirstResponder() -> Bool {
         let result = super.resignFirstResponder()
         if result {
