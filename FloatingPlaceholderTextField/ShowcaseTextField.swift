@@ -19,13 +19,15 @@ class ShowcaseTextField: FloatingPlaceholderTextField {
     init(placeholderBehaviour: PlaceholderBehaviour) {
         super.init(placeholderBehaviour: placeholderBehaviour,
                    placeholderStyling: ShowcaseTextField.placeholderStyling,
-                   placeholderGeometry: ShowcaseTextField.placeholderGeometry)
+                   placeholderGeometry: ShowcaseTextField.placeholderGeometry,
+                   bottomTextBehaviour: .visibleOnlyAtErrorState)
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(placeholderBehaviour: .float,
                    placeholderStyling: ShowcaseTextField.placeholderStyling,
-                   placeholderGeometry: ShowcaseTextField.placeholderGeometry)
+                   placeholderGeometry: ShowcaseTextField.placeholderGeometry,
+                   bottomTextBehaviour: .visibleOnlyAtErrorState)
     }
 
     // MARK: - UIControl

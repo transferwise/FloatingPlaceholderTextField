@@ -13,6 +13,7 @@ final class FloatingPlaceholderTextFieldTests_behaviourDisappear: FloatingPlaceh
     override func provideTextField() -> FloatingPlaceholderTextField {
         return FloatingPlaceholderTextField(placeholderBehaviour: .disappear,
                                             placeholderStyling: StandardFloatingPlaceholderViewStyling.test,
-                                            placeholderGeometry: .testWhenLineHeightsNotSet)
+                                            placeholderGeometry: .testWhenLineHeightsNotSet,
+                                            bottomTextBehaviour: .visibleOnlyAtErrorState)
     }
 }

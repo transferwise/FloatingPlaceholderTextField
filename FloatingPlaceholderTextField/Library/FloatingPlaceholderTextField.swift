@@ -11,18 +11,25 @@ open class FloatingPlaceholderTextField: UITextField {
         case float
         case disappear
     }
+    
+    public enum BottomTextBehaviour {
+        case alwaysVisible
+        case whileFloating
+        case visibleOnlyAtErrorState
+    }
 
     public let placeholderBehaviour: PlaceholderBehaviour
+    public let bottomTextBehaviour: BottomTextBehaviour
     public let placeholderGeometry: FloatingPlaceholderViewGeometry
     public let placeholderStyling: FloatingPlaceholderViewStyling
 
-    open var hideErrorOnTextChange = true
-
     public init(placeholderBehaviour: PlaceholderBehaviour,
                 placeholderStyling: FloatingPlaceholderViewStyling,
-                placeholderGeometry: FloatingPlaceholderViewGeometry) {
+                placeholderGeometry: FloatingPlaceholderViewGeometry,
+                bottomTextBehaviour: BottomTextBehaviour) {
 
         self.placeholderBehaviour = placeholderBehaviour
+        self.bottomTextBehaviour = bottomTextBehaviour
         self.placeholderGeometry = placeholderGeometry
         self.placeholderStyling = placeholderStyling
         super.init(frame: .zero)
@@ -32,17 +39,85 @@ open class FloatingPlaceholderTextField: UITextField {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("\(#function) has not been implemented")
     }
+    
+    public var bottomText: NSAttributedString? {
+        didSet {
+            if !shouldShowBottomLabel(forState: styleState) {
+                floatingPlaceholderView.bottomText = nil
+            } else {
+                floatingPlaceholderView.bottomText = bottomText
+            }
 
-    open var error: String? {
-        return floatingPlaceholderView.error
+            updateLayout(animated: UIView.areAnimationsEnabled)
+        }
     }
+    
+    public func updateLayout(animated: Bool = UIView.areAnimationsEnabled) {
+        freezeTextRect()
+        
+        let finishLayout = {
+            self.unfreezeTextRect()
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+        }
+        
+        let animated = animated && (window != nil)
 
-    open func showError(_ error: String, animated: Bool = UIView.areAnimationsEnabled) {
-        setError(error, animated: animated)
+        if animated {
+            let animations = {
+
+                self.invalidateIntrinsicContentSize()
+
+                // Need to layout all parents so size change is animated smoothly
+                var ptr = self.superview
+                while let v = ptr {
+                    v.setNeedsLayout()
+                    v.layoutIfNeeded()
+                    if v is UIScrollView {
+                        // There is no point in a propagation of force-layout after hitting UIScrollView.
+                        // Also fixes problem when calling `setNeedsLayout` and then `layoutIfNeeded` on some UIKit
+                        // internal classes (maybe it’s UILayoutContainerView) changes contentInsets of UIScrollView.
+                        break
+                    }
+                    ptr = v.superview
+                }
+            }
+
+            UIView.animate(
+                withDuration: 0.25,
+                delay: 0,
+                options: .curveEaseInOut,
+                animations: animations,
+                completion: { _ in finishLayout() }
+            )
+        } else {
+            invalidateIntrinsicContentSize()
+            finishLayout()
+        }
+
     }
+    
+    open var styleState: FloatingPlaceholderViewStyleState {
+        get {
+            return floatingPlaceholderView.styleState
+        }
+        set {
+            guard newValue != styleState else {
+                return
+            }
 
-    open func hideError(animated: Bool = UIView.areAnimationsEnabled) {
-        setError(nil, animated: animated)
+            if !shouldShowBottomLabel(forState: newValue) {
+                floatingPlaceholderView.bottomText = nil
+            } else {
+                floatingPlaceholderView.bottomText = bottomText
+            }
+
+            floatingPlaceholderView.styleState = newValue
+            updateLayout(animated: UIView.areAnimationsEnabled)
+
+            updateResponderStatusDependencies()
+        }
+
     }
 
     // MARK: - UIView
@@ -70,17 +145,36 @@ open class FloatingPlaceholderTextField: UITextField {
     @discardableResult
     open override func becomeFirstResponder() -> Bool {
         let result = super.becomeFirstResponder()
-        if result {
-            updateResponderStatusDependencies()
+
+        // While UITextField switch active/inactive states,
+        // it replaces UIFieldEditor <-> _UITextFieldContentView
+        // to align this switch properly we need layout subviews
+        UIView.performWithoutAnimation {
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+
+        if result, styleState != .error {
+            styleState = .active
         }
         return result
     }
 
     @discardableResult
     open override func resignFirstResponder() -> Bool {
+
         let result = super.resignFirstResponder()
-        if result {
-            updateResponderStatusDependencies()
+
+        // While UITextField switch active/inactive states,
+        // it replaces UIFieldEditor <-> _UITextFieldContentView
+        // to align this switch properly we need layout subviews
+        UIView.performWithoutAnimation {
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+
+        if result, styleState != .error {
+            styleState = .inactive(enabled: isEnabled)
         }
         return result
     }
@@ -89,7 +183,11 @@ open class FloatingPlaceholderTextField: UITextField {
 
     open override var isEnabled: Bool {
         didSet {
-            floatingPlaceholderView.isEnabled = isEnabled
+            guard isEnabled != oldValue else {
+                return
+            }
+
+            styleState = .inactive(enabled: isEnabled)
         }
     }
 
@@ -178,11 +276,26 @@ open class FloatingPlaceholderTextField: UITextField {
     // MARK: - Actions
 
     @objc private func editingChanged() {
+
         updateTextDependencies(animated: UIView.areAnimationsEnabled)
     }
 
     // MARK: - Private
 
+    private func shouldShowBottomLabel(forState state: FloatingPlaceholderViewStyleState) -> Bool {
+        switch bottomTextBehaviour {
+        case .alwaysVisible:
+            return true
+        case .whileFloating:
+            if let text = text, !text.isEmpty {
+                return true
+            }
+            return state != .inactive(enabled: true)
+        case .visibleOnlyAtErrorState:
+            return state == .error
+        }
+    }
+    
     private var _placeholder: String?
 
     private lazy var floatingPlaceholderView: FloatingPlaceholderView = {
@@ -220,64 +333,12 @@ open class FloatingPlaceholderTextField: UITextField {
         frozenTextRect = nil
     }
 
-    private func setError(_ error: String?, animated: Bool) {
-        guard floatingPlaceholderView.error != error else {
-            return
-        }
-        
-        freezeTextRect()
-
-        let finishLayout = {
-            self.unfreezeTextRect()
-            self.setNeedsLayout()
-            self.layoutIfNeeded()
-        }
-
-        let animated = animated && (window != nil)
-
-        floatingPlaceholderView.error = error
-
-        if animated {
-            let animations = {
-                self.invalidateIntrinsicContentSize()
-
-                // Need to layout all parents so size change is animated smoothly
-                var ptr = self.superview
-                while let v = ptr {
-                    v.setNeedsLayout()
-                    v.layoutIfNeeded()
-                    if v is UIScrollView {
-                        // There is no point in a propagation of force-layout after hitting UIScrollView.
-                        // Also fixes problem when calling `setNeedsLayout` and then `layoutIfNeeded` on some UIKit
-                        // internal classes (maybe it’s UILayoutContainerView) changes contentInsets of UIScrollView.
-                        break
-                    }
-                    ptr = v.superview
-                }
-            }
-
-            UIView.animate(
-                withDuration: 0.25,
-                delay: 0,
-                options: .curveEaseInOut,
-                animations: animations,
-                completion: { _ in finishLayout() }
-            )
-        } else {
-            invalidateIntrinsicContentSize()
-            finishLayout()
-        }
-    }
-
     private func updateTextDependencies(animated: Bool) {
         updatePlaceholderPosition(animated: animated)
-        if hideErrorOnTextChange {
-            hideError(animated: animated)
-        }
     }
 
     private func updateResponderStatusDependencies() {
-        updateFloatingLabelViewIsActive()
+
         updatePlaceholderPosition(animated: UIView.areAnimationsEnabled)
     }
 
@@ -304,9 +365,5 @@ open class FloatingPlaceholderTextField: UITextField {
         case .disappear:
             floatingPlaceholderView.placeholder = shouldPutAwayPlaceholder() ? nil : _placeholder
         }
-    }
-
-    private func updateFloatingLabelViewIsActive() {
-        floatingPlaceholderView.isActive = isFirstResponder
     }
 }

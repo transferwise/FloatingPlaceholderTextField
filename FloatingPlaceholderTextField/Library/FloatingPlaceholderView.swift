@@ -89,52 +89,24 @@ public final class FloatingPlaceholderView: UIView {
         }
     }
 
-    public var isEnabled = true {
+    public var bottomText: NSAttributedString? {
         didSet {
-            guard oldValue != isEnabled else {
-                return
-            }
-            updateStyleStateDependencies()
-        }
-    }
 
-    public var isActive = false {
-        didSet {
-            guard oldValue != isActive else {
-                return
-            }
-            updateStyleStateDependencies()
-        }
-    }
+            updateBottomLabelStyle()
+            bottomLabel.attributedText = bottomText
 
-    public var error: String? {
-        set {
-            guard error != newValue else {
-                return
-            }
-            if let value = newValue, let lineHeight = geometry.floatingAndErrorLabelLineHeight {
-                let font = styling.errorLabelFont()
-                var attributes: [String: Any] = [NSFontAttributeName: font]
-                let paragraph = NSMutableParagraphStyle()
-                paragraph.lineSpacing = lineHeight - font.lineHeight
-                attributes[NSParagraphStyleAttributeName] = paragraph
-                
-                let attributedString = NSMutableAttributedString(string: value)
-                attributedString.setAttributes(attributes, range: NSRange(location: 0, length: attributedString.length))
-                
-                errorLabel.attributedText = attributedString
-            } else {
-                errorLabel.text = newValue
-            }
-            
-            // Need this for show error animation
-            errorLabel.frame = calculateErrorLabelFrame()
-            
+
             invalidateIntrinsicContentSize()
-            updateStyleStateDependencies()
         }
-        get {
-            return errorLabel.text
+    }
+
+    public var styleState: FloatingPlaceholderViewStyleState = .inactive(enabled: true) {
+        didSet {
+            guard oldValue != styleState else {
+                return
+            }
+            
+            updateStyleStateDependencies()
         }
     }
 
@@ -177,7 +149,7 @@ public final class FloatingPlaceholderView: UIView {
             return
         }
         placeholderLabel.frame = calculateTextLabelFrame(ignorePreferredMaxLayoutWidth: false)
-        errorLabel.frame = calculateErrorLabelFrame()
+        bottomLabel.frame = calculateBottomLabelFrame()
         underline.frame = calculateUnderlineFrame()
     }
 
@@ -194,9 +166,10 @@ public final class FloatingPlaceholderView: UIView {
         height += placeholderLabelHeight(isFloating: false)
         height += geometry.nonFloatingLabelToUnderlineOffset
         height += geometry.underlineHeight
-        if error != nil {
-            height += geometry.underlineToErrorLabelOffset
-            height += calculateErrorLabelSize(boundingWidth: size.width).height
+        
+        if bottomText != nil {
+            height += geometry.underlineToBottomLabelOffset
+            height += calculateBottomLabelSize(boundingWidth: size.width).height
         }
         return CGSize(width: size.width, height: height)
     }
@@ -211,10 +184,8 @@ public final class FloatingPlaceholderView: UIView {
         return UIView(frame: .zero)
     }()
 
-    private lazy var errorLabel: UILabel = {
+    private lazy var bottomLabel: UILabel = {
         let l = UILabel(frame: .zero)
-        l.font = self.styling.errorLabelFont()
-        l.textColor = self.styling.errorLabelColor()
         l.numberOfLines = 0
         return l
     }()
@@ -231,32 +202,64 @@ public final class FloatingPlaceholderView: UIView {
         isUserInteractionEnabled = false
         addSubview(placeholderLabel)
         addSubview(underline)
-        addSubview(errorLabel)
+        addSubview(bottomLabel)
         updateUnderlineColor()
     }
 
     private func updatePlaceholderLabel() {
         placeholderLabel.font = styling.placeholderLabelFont(isFloating: isFloating)
-        placeholderLabel.textColor = styling.placeholderLabelColor(forState: styleState(), isFloating: isFloating)
+        placeholderLabel.textColor = styling.placeholderLabelColor(forState: styleState, isFloating: isFloating)
         placeholderLabel.text = placeholder
         setNeedsLayout()
-    }
-
-    private func styleState() -> FloatingPlaceholderViewStyleState {
-        if error != nil {
-            return .error
-        } else {
-            return isActive ? .active : .inactive(enabled: isEnabled)
-        }
     }
 
     private func updateStyleStateDependencies() {
         updatePlaceholderLabel()
         updateUnderlineColor()
+        updateBottomLabelStyle()
     }
 
     private func updateUnderlineColor() {
-        underline.backgroundColor = styling.underlineColor(forState: styleState())
+        underline.backgroundColor = styling.underlineColor(forState: styleState)
+    }
+    
+    private func updateBottomLabelStyle() {
+        guard let bottomText = bottomText else {
+            bottomLabel.attributedText = self.bottomText
+            return
+        }
+
+        let fullRange = NSRange(location: 0, length: bottomText.length)
+
+        // to save all existed local attributes - we need save them, apply global, re-apply saved local attributes
+        var existedAttributes = Array<(NSRange, [String: Any])>()
+        bottomText.enumerateAttributes(in: fullRange, options: []) {
+            (attribues, range, _) in
+            existedAttributes.append((range, attribues))
+        }
+
+        let styledBottomText = NSMutableAttributedString(string: bottomText.string)
+
+        let color = styling.bottomLabelColor(forState: styleState)
+        let font = styling.bottomLabelFont()
+
+        var stylingAttributes: [String: Any] = [NSFontAttributeName: font,
+                                                NSForegroundColorAttributeName: color]
+        let paragraph = NSMutableParagraphStyle()
+        if let lineHeight = geometry.floatingAndBottomLabelLineHeight {
+            paragraph.lineSpacing = lineHeight - font.lineHeight
+        }
+        paragraph.lineBreakMode = .byWordWrapping
+        
+        stylingAttributes[NSParagraphStyleAttributeName] = paragraph
+
+        styledBottomText.addAttributes(stylingAttributes, range: NSRange(location: 0, length: bottomText.length))
+
+        for existedAttribute in existedAttributes {
+            styledBottomText.addAttributes(existedAttribute.1, range: existedAttribute.0)
+        }
+
+        bottomLabel.attributedText = styledBottomText
     }
 
     /**
@@ -307,33 +310,27 @@ public final class FloatingPlaceholderView: UIView {
         return CGRect(x: 0, y: y, width: bounds.width, height: geometry.underlineHeight)
     }
 
-    private func calculateErrorLabelFrame() -> CGRect {
-        let y = calculateUnderlineFrame().maxY + geometry.underlineToErrorLabelOffset
-        let size = calculateErrorLabelSize(boundingWidth: bounds.width)
+    private func calculateBottomLabelFrame() -> CGRect {
+        let y = calculateUnderlineFrame().maxY + geometry.underlineToBottomLabelOffset
+        let size = calculateBottomLabelSize(boundingWidth: bounds.width)
         return CGRect(x: 0,
                       y: y,
                       width: size.width,
                       height: size.height)
     }
 
-    private func calculateErrorLabelSize(boundingWidth: CGFloat) -> CGSize {
-        if let error = error {
-            let font = styling.errorLabelFont()
-            let size = NSString(string: error).boundingRect(with: CGSize(width: boundingWidth, height: .greatestFiniteMagnitude),
-                                                            options: [.usesLineFragmentOrigin],
-                                                            attributes: [NSFontAttributeName: font],
-                                                            context: nil)
-            let height: CGFloat
-            if let lineHeight = geometry.floatingAndErrorLabelLineHeight {
-                height = ceil(round(size.height / font.lineHeight) * lineHeight)
-            } else {
-                height = ceil(size.height)
-            }
-            
-            return CGSize(width: boundingWidth, height: height)
-        } else {
+    private func calculateBottomLabelSize(boundingWidth: CGFloat) -> CGSize {
+        guard let styledBottomText = bottomLabel.attributedText else {
             return .zero
         }
+
+        let size = styledBottomText.boundingRect(with: CGSize(width: boundingWidth, height: .greatestFiniteMagnitude),
+                                                 options: [.usesLineFragmentOrigin],
+                                                 context: nil)
+
+        let height = ceil(size.height)
+        
+        return CGSize(width: boundingWidth, height: height)
     }
 
     private func leftRightViewMinY(forSize size: CGSize) -> CGFloat {
@@ -346,7 +343,7 @@ public final class FloatingPlaceholderView: UIView {
 
     private func placeholderLabelHeight(isFloating: Bool) -> CGFloat {
         if isFloating {
-            if let lineHeight = geometry.floatingAndErrorLabelLineHeight {
+            if let lineHeight = geometry.floatingAndBottomLabelLineHeight {
                 return lineHeight
             }
         } else {

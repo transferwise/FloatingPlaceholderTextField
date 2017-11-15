@@ -19,7 +19,7 @@ class FloatingPlaceholderTextFieldTests: FBSnapshotTestCase {
     
     override func setUp() {
         super.setUp()
-        
+
         UIView.setAnimationsEnabled(false)
         
         field = provideTextField()
@@ -63,10 +63,20 @@ class FloatingPlaceholderTextFieldTests: FBSnapshotTestCase {
         FBSnapshotVerifyView(field, file: file, line: line)
     }
     
-    func test_whenTextChanges_givenHadError_errorIsHidden() {
+    func test_whenTextChanges_givenHadError_errorIsVisible() {
         field.text = "foo"
         field.showError("error", animated: false)
         field.text = "bar"
-        XCTAssertNil(field.error)
+        XCTAssertNotNil(field.bottomText)
     }
 }
+
+
+fileprivate extension FloatingPlaceholderTextField {
+    func showError(_ error: String, animated: Bool) {
+        UIView.setAnimationsEnabled(animated)
+        bottomText = NSAttributedString(string: error)
+        styleState = .error
+    }
+}
+

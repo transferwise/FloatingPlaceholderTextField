@@ -10,19 +10,19 @@ extension FloatingPlaceholderViewGeometry {
 
     static let testWhenLineHeightsSet = FloatingPlaceholderViewGeometry(underlineHeight: 1,
                                                                         topToFloatingLabelOffset: 8,
-                                                                        floatingAndErrorLabelLineHeight: 18,
+                                                                        floatingAndBottomLabelLineHeight: 18,
                                                                         floatingToNonFloatingLabelOffset: 4,
                                                                         nonFloatingLabelLineHeight: 22,
                                                                         nonFloatingLabelToUnderlineOffset: 12,
-                                                                        underlineToErrorLabelOffset: 8,
+                                                                        underlineToBottomLabelOffset: 8,
                                                                         leftRightViewToTextOffset: 8)
 
     static let testWhenLineHeightsNotSet = FloatingPlaceholderViewGeometry(underlineHeight: 1,
                                                                            topToFloatingLabelOffset: 8,
-                                                                           floatingAndErrorLabelLineHeight: nil,
+                                                                           floatingAndBottomLabelLineHeight: nil,
                                                                            floatingToNonFloatingLabelOffset: 4,
                                                                            nonFloatingLabelLineHeight: nil,
                                                                            nonFloatingLabelToUnderlineOffset: 12,
-                                                                           underlineToErrorLabelOffset: 8,
+                                                                           underlineToBottomLabelOffset: 8,
                                                                            leftRightViewToTextOffset: 8)
 }

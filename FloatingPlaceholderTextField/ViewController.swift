@@ -28,6 +28,14 @@ final class ViewController: UIViewController {
         return b
     }()
 
+    private lazy var hideErrorButton: UIButton = {
+        let b = UIButton(type: .system)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.addTarget(self, action: #selector(handleHideErrorButtonPressed), for: .touchUpInside)
+        b.setTitle("Hide Error", for: .normal)
+        return b
+    }()
+
     private lazy var dismissKeyboardButton: UIButton = {
         let b = UIButton(type: .system)
         b.translatesAutoresizingMaskIntoConstraints = false
@@ -55,8 +63,13 @@ final class ViewController: UIViewController {
         showErrorButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
         showErrorButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
 
+        view.addSubview(hideErrorButton)
+        hideErrorButton.topAnchor.constraint(equalTo: showErrorButton.bottomAnchor, constant: 24).isActive = true
+        hideErrorButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+        hideErrorButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
+
         view.addSubview(dismissKeyboardButton)
-        dismissKeyboardButton.topAnchor.constraint(equalTo: showErrorButton.bottomAnchor, constant: 24).isActive = true
+        dismissKeyboardButton.topAnchor.constraint(equalTo: hideErrorButton.bottomAnchor, constant: 24).isActive = true
         dismissKeyboardButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
         dismissKeyboardButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
 
@@ -67,7 +80,13 @@ final class ViewController: UIViewController {
     }
     
     @objc private func handleShowErrorButtonPressed() {
-        textField.showError("Try TransferWise and send money with the real exchange rate!")
+        textField.bottomText = NSAttributedString(string: "Try TransferWise and send money with the real exchange rate!")
+        textField.styleState = .error
+    }
+
+    @objc private func handleHideErrorButtonPressed() {
+        textField.bottomText = nil
+        textField.styleState = textField.isFirstResponder ? .active : .inactive(enabled: textField.isEnabled)
     }
 
     @objc private func handleDismissKeyboardButtonPressed() {

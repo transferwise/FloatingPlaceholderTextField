@@ -58,13 +58,13 @@ public struct StandardFloatingPlaceholderViewStyling: FloatingPlaceholderViewSty
             return errorColor
         }
     }
-    
-    public func errorLabelFont() -> UIFont {
+
+    public func bottomLabelFont() -> UIFont {
         return placeholderLabelFont(isFloating: true)
     }
-    
-    public func errorLabelColor() -> UIColor {
-        return placeholderLabelColor(forState: .error, isFloating: true)
+
+    public func bottomLabelColor(forState state: FloatingPlaceholderViewStyleState) -> UIColor {
+        return placeholderLabelColor(forState: state, isFloating: true)
     }
     
     public func underlineColor(forState state: FloatingPlaceholderViewStyleState) -> UIColor {
