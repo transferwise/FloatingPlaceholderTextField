@@ -13,6 +13,7 @@ final class FloatingPlaceholderTextFieldTests_lineHeightsSet: FloatingPlaceholde
     override func provideTextField() -> FloatingPlaceholderTextField {
         return FloatingPlaceholderTextField(placeholderBehaviour: .float,
                                             placeholderStyling: StandardFloatingPlaceholderViewStyling.test,
-                                            placeholderGeometry: .testWhenLineHeightsSet)
+                                            placeholderGeometry: .testWhenLineHeightsSet,
+                                            bottomTextBehaviour: .visibleOnlyAtErrorState)
     }
 }

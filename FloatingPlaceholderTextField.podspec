@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "FloatingPlaceholderTextField"
   s.platform     = :ios
-  s.version      = "1.0.1"
+  s.version      = "1.1.0"
   s.summary      = "Customizable UITextField subclass with floating placeholder"
   s.homepage     = "https://github.com/transferwise/FloatingPlaceholderTextField"
   s.license      = 'MIT'
