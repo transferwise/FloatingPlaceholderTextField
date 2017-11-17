@@ -114,10 +114,10 @@ public final class FloatingPlaceholderView: UIView {
             }
             if let value = newValue, let lineHeight = geometry.floatingAndErrorLabelLineHeight {
                 let font = styling.errorLabelFont()
-                var attributes: [String: Any] = [NSFontAttributeName: font]
+                var attributes: [NSAttributedStringKey: Any] = [.font: font]
                 let paragraph = NSMutableParagraphStyle()
                 paragraph.lineSpacing = lineHeight - font.lineHeight
-                attributes[NSParagraphStyleAttributeName] = paragraph
+                attributes[.paragraphStyle] = paragraph
                 
                 let attributedString = NSMutableAttributedString(string: value)
                 attributedString.setAttributes(attributes, range: NSRange(location: 0, length: attributedString.length))
@@ -270,7 +270,7 @@ public final class FloatingPlaceholderView: UIView {
             let font = styling.placeholderLabelFont(isFloating: isFloating)
             let size = NSString(string: text).boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
                                                            options: [],
-                                                           attributes: [NSFontAttributeName: font],
+                                                           attributes: [.font: font],
                                                            context: nil)
             var w = ceil(size.width)
             if !ignorePreferredMaxLayoutWidth, let maxLayoutWidth = preferredPlaceholderMaxLayoutWidth {
@@ -321,7 +321,7 @@ public final class FloatingPlaceholderView: UIView {
             let font = styling.errorLabelFont()
             let size = NSString(string: error).boundingRect(with: CGSize(width: boundingWidth, height: .greatestFiniteMagnitude),
                                                             options: [.usesLineFragmentOrigin],
-                                                            attributes: [NSFontAttributeName: font],
+                                                            attributes: [.font: font],
                                                             context: nil)
             let height: CGFloat
             if let lineHeight = geometry.floatingAndErrorLabelLineHeight {
