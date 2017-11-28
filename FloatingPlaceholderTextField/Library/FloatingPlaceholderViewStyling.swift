@@ -9,7 +9,29 @@ public enum FloatingPlaceholderViewStyleState {
     
     case inactive(enabled: Bool)
     case active
-    case error
+    // we might not show error, but apply error style
+    case error(message: String?)
+
+    public static func ==(lhs: FloatingPlaceholderViewStyleState, rhs: FloatingPlaceholderViewStyleState) -> Bool {
+        switch (lhs, rhs) {
+        case (.inactive(let lhsEnabled), .inactive(let rhsEnabled)):
+            return lhsEnabled == rhsEnabled
+
+        case (.active, .active):
+            return true
+
+        case (.error(let lhsErrorMessage), .error(let rhsErrorMessage)):
+            return lhsErrorMessage == rhsErrorMessage
+
+        default:
+            return false
+        }
+    }
+
+    public static func !=(lhs: FloatingPlaceholderViewStyleState, rhs: FloatingPlaceholderViewStyleState) -> Bool {
+        let equal = lhs == rhs
+        return !equal
+    }
 }
 
 public protocol FloatingPlaceholderViewStyling {
