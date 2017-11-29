@@ -99,6 +99,19 @@ public final class FloatingPlaceholderView: UIView {
         }
     }
 
+    public var isActive: Bool {
+        get {
+            return styleState == .active
+        }
+        set {
+            if case .error = styleState {
+                // isActive don't reset error state
+                return
+            }
+
+            styleState = newValue ? .active : .inactive(enabled: true)
+        }
+    }
     public func inputAreaRect() -> CGRect {
         let y = geometry.topToFloatingLabelOffset
             + placeholderLabelHeight(isFloating: true)
