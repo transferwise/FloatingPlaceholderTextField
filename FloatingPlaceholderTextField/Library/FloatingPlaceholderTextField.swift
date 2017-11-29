@@ -52,12 +52,12 @@ open class FloatingPlaceholderTextField: UITextField {
     }
 
     // MARK: Style API
-    open func updateStyleSate() {
+    open func updateStyleState() {
         let styleState: FloatingPlaceholderViewStyleState
 
         // if state is error - we should not change it
-        if case .error(_) = floatingPlaceholderView.styleState {
-            styleState = floatingPlaceholderView.styleState
+        if case .error(_) = self.styleState {
+            styleState = self.styleState
         } else {
             styleState = possibleNonErrorState
         }
@@ -130,7 +130,7 @@ open class FloatingPlaceholderTextField: UITextField {
 
     open override var isEnabled: Bool {
         didSet {
-            updateStyleSate()
+            updateStyleState()
         }
     }
 
@@ -326,7 +326,7 @@ open class FloatingPlaceholderTextField: UITextField {
     }
 
     private func updateResponderStatusDependencies() {
-        updateStyleSate()
+        updateStyleState()
         updatePlaceholderPosition(animated: UIView.areAnimationsEnabled)
     }
 
