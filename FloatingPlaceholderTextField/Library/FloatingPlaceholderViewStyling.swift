@@ -5,7 +5,7 @@
 
 import UIKit
 
-public enum FloatingPlaceholderViewStyleState {
+public enum FloatingPlaceholderViewStyleState: Equatable {
     
     case inactive(enabled: Bool)
     case active
@@ -26,11 +26,6 @@ public enum FloatingPlaceholderViewStyleState {
         default:
             return false
         }
-    }
-
-    public static func !=(lhs: FloatingPlaceholderViewStyleState, rhs: FloatingPlaceholderViewStyleState) -> Bool {
-        let equal = lhs == rhs
-        return !equal
     }
 }
 
