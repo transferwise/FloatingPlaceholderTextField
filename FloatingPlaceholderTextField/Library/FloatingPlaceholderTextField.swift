@@ -33,17 +33,52 @@ open class FloatingPlaceholderTextField: UITextField {
         fatalError("\(#function) has not been implemented")
     }
 
+    // MARK: Error convenience API
     open var error: String? {
-        return floatingPlaceholderView.error
+        guard case .error(let errorMessage) = styleState else {
+            return nil
+        }
+        return errorMessage
     }
 
+    @objc
     open func showError(_ error: String, animated: Bool = UIView.areAnimationsEnabled) {
         setError(error, animated: animated)
     }
 
     open func hideError(animated: Bool = UIView.areAnimationsEnabled) {
         setError(nil, animated: animated)
+        styleState = errorHiddenFallbackState
     }
+
+    // MARK: Style API
+    open func updateStyleState() {
+        let styleState: FloatingPlaceholderViewStyleState
+
+        // if state is error - we should not change it
+        if case .error = self.styleState {
+            styleState = self.styleState
+        } else {
+            styleState = errorHiddenFallbackState
+        }
+
+        self.styleState = styleState
+    }
+
+    open var styleState: FloatingPlaceholderViewStyleState  {
+        get {
+            return floatingPlaceholderView.styleState
+        }
+        set {
+            floatingPlaceholderView.styleState = newValue
+        }
+    }
+
+    public lazy var floatingPlaceholderView: FloatingPlaceholderView = {
+        let v = FloatingPlaceholderView(styling: self.placeholderStyling, geometry: self.placeholderGeometry)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
 
     // MARK: - UIView
 
@@ -70,6 +105,9 @@ open class FloatingPlaceholderTextField: UITextField {
     @discardableResult
     open override func becomeFirstResponder() -> Bool {
         let result = super.becomeFirstResponder()
+
+        forceLayoutWithoutAnimation()
+
         if result {
             updateResponderStatusDependencies()
         }
@@ -79,6 +117,9 @@ open class FloatingPlaceholderTextField: UITextField {
     @discardableResult
     open override func resignFirstResponder() -> Bool {
         let result = super.resignFirstResponder()
+
+        forceLayoutWithoutAnimation()
+
         if result {
             updateResponderStatusDependencies()
         }
@@ -89,7 +130,7 @@ open class FloatingPlaceholderTextField: UITextField {
 
     open override var isEnabled: Bool {
         didSet {
-            floatingPlaceholderView.isEnabled = isEnabled
+            updateStyleState()
         }
     }
 
@@ -185,11 +226,17 @@ open class FloatingPlaceholderTextField: UITextField {
 
     private var _placeholder: String?
 
-    private lazy var floatingPlaceholderView: FloatingPlaceholderView = {
-        let v = FloatingPlaceholderView(styling: self.placeholderStyling, geometry: self.placeholderGeometry)
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
+    private var errorHiddenFallbackState: FloatingPlaceholderViewStyleState {
+        return isFirstResponder ? .active : .inactive(enabled: isEnabled)
+    }
+
+    private var isErrorState: Bool {
+        if case .error = styleState {
+            return true
+        }
+
+        return false
+    }
 
     private func commonInit() {
         setupAppearance()
@@ -221,7 +268,8 @@ open class FloatingPlaceholderTextField: UITextField {
     }
 
     private func setError(_ error: String?, animated: Bool) {
-        guard floatingPlaceholderView.error != error else {
+
+        if case .error(let currentError) = styleState, currentError == error {
             return
         }
         
@@ -235,7 +283,8 @@ open class FloatingPlaceholderTextField: UITextField {
 
         let animated = animated && (window != nil)
 
-        floatingPlaceholderView.error = error
+        let state = error == nil ? errorHiddenFallbackState : .error(message: error)
+        floatingPlaceholderView.styleState = state
 
         if animated {
             let animations = {
@@ -277,7 +326,7 @@ open class FloatingPlaceholderTextField: UITextField {
     }
 
     private func updateResponderStatusDependencies() {
-        updateFloatingLabelViewIsActive()
+        updateStyleState()
         updatePlaceholderPosition(animated: UIView.areAnimationsEnabled)
     }
 
@@ -306,7 +355,13 @@ open class FloatingPlaceholderTextField: UITextField {
         }
     }
 
-    private func updateFloatingLabelViewIsActive() {
-        floatingPlaceholderView.isActive = isFirstResponder
+    private func forceLayoutWithoutAnimation() {
+        // While UITextField switch active/inactive states,
+        // it replaces UIFieldEditor <-> _UITextFieldContentView
+        // to align this switch properly we need layout subviews
+        UIView.performWithoutAnimation {
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
     }
 }

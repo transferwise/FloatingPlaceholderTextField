@@ -64,7 +64,7 @@ public struct StandardFloatingPlaceholderViewStyling: FloatingPlaceholderViewSty
     }
     
     public func errorLabelColor() -> UIColor {
-        return placeholderLabelColor(forState: .error, isFloating: true)
+        return placeholderLabelColor(forState: .error(message: ""), isFloating: true)
     }
     
     public func underlineColor(forState state: FloatingPlaceholderViewStyleState) -> UIColor {

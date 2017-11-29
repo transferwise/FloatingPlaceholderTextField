@@ -89,55 +89,29 @@ public final class FloatingPlaceholderView: UIView {
         }
     }
 
-    public var isEnabled = true {
+    public var styleState: FloatingPlaceholderViewStyleState = .inactive(enabled: true) {
         didSet {
-            guard oldValue != isEnabled else {
+            guard styleState != oldValue else {
                 return
             }
+            updateErrorLabel()
             updateStyleStateDependencies()
         }
     }
 
-    public var isActive = false {
-        didSet {
-            guard oldValue != isActive else {
-                return
-            }
-            updateStyleStateDependencies()
-        }
-    }
-
-    public var error: String? {
-        set {
-            guard error != newValue else {
-                return
-            }
-            if let value = newValue, let lineHeight = geometry.floatingAndErrorLabelLineHeight {
-                let font = styling.errorLabelFont()
-                var attributes: [NSAttributedStringKey: Any] = [.font: font]
-                let paragraph = NSMutableParagraphStyle()
-                paragraph.lineSpacing = lineHeight - font.lineHeight
-                attributes[.paragraphStyle] = paragraph
-                
-                let attributedString = NSMutableAttributedString(string: value)
-                attributedString.setAttributes(attributes, range: NSRange(location: 0, length: attributedString.length))
-                
-                errorLabel.attributedText = attributedString
-            } else {
-                errorLabel.text = newValue
-            }
-            
-            // Need this for show error animation
-            errorLabel.frame = calculateErrorLabelFrame()
-            
-            invalidateIntrinsicContentSize()
-            updateStyleStateDependencies()
-        }
+    public var isActive: Bool {
         get {
-            return errorLabel.text
+            return styleState == .active
+        }
+        set {
+            if case .error = styleState {
+                // isActive don't reset error state
+                return
+            }
+
+            styleState = newValue ? .active : .inactive(enabled: true)
         }
     }
-
     public func inputAreaRect() -> CGRect {
         let y = geometry.topToFloatingLabelOffset
             + placeholderLabelHeight(isFloating: true)
@@ -226,6 +200,37 @@ public final class FloatingPlaceholderView: UIView {
 
     private var _isFloating = false
 
+    private var error: String? {
+        guard case .error(let errorMessage) = styleState else {
+            return nil
+        }
+
+        return errorMessage
+    }
+
+    private func updateErrorLabel() {
+
+        if let value = error, let lineHeight = geometry.floatingAndErrorLabelLineHeight {
+            let font = styling.errorLabelFont()
+            var attributes: [NSAttributedStringKey: Any] = [.font: font]
+            let paragraph = NSMutableParagraphStyle()
+            paragraph.lineSpacing = lineHeight - font.lineHeight
+            attributes[.paragraphStyle] = paragraph
+
+            let attributedString = NSMutableAttributedString(string: value)
+            attributedString.setAttributes(attributes, range: NSRange(location: 0, length: attributedString.length))
+
+            errorLabel.attributedText = attributedString
+        } else {
+            errorLabel.text = error
+        }
+
+        // Need this for show error animation
+        errorLabel.frame = calculateErrorLabelFrame()
+
+        invalidateIntrinsicContentSize()
+    }
+
     private func commonInit() {
         clipsToBounds = true
         isUserInteractionEnabled = false
@@ -237,17 +242,9 @@ public final class FloatingPlaceholderView: UIView {
 
     private func updatePlaceholderLabel() {
         placeholderLabel.font = styling.placeholderLabelFont(isFloating: isFloating)
-        placeholderLabel.textColor = styling.placeholderLabelColor(forState: styleState(), isFloating: isFloating)
+        placeholderLabel.textColor = styling.placeholderLabelColor(forState: styleState, isFloating: isFloating)
         placeholderLabel.text = placeholder
         setNeedsLayout()
-    }
-
-    private func styleState() -> FloatingPlaceholderViewStyleState {
-        if error != nil {
-            return .error
-        } else {
-            return isActive ? .active : .inactive(enabled: isEnabled)
-        }
     }
 
     private func updateStyleStateDependencies() {
@@ -256,7 +253,7 @@ public final class FloatingPlaceholderView: UIView {
     }
 
     private func updateUnderlineColor() {
-        underline.backgroundColor = styling.underlineColor(forState: styleState())
+        underline.backgroundColor = styling.underlineColor(forState: styleState)
     }
 
     /**
