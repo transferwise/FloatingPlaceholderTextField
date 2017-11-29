@@ -48,7 +48,7 @@ open class FloatingPlaceholderTextField: UITextField {
 
     open func hideError(animated: Bool = UIView.areAnimationsEnabled) {
         setError(nil, animated: animated)
-        styleState = possibleNonErrorState
+        styleState = errorHiddenFallbackState
     }
 
     // MARK: Style API
@@ -56,10 +56,10 @@ open class FloatingPlaceholderTextField: UITextField {
         let styleState: FloatingPlaceholderViewStyleState
 
         // if state is error - we should not change it
-        if case .error(_) = self.styleState {
+        if case .error = self.styleState {
             styleState = self.styleState
         } else {
-            styleState = possibleNonErrorState
+            styleState = errorHiddenFallbackState
         }
 
         self.styleState = styleState
@@ -106,7 +106,7 @@ open class FloatingPlaceholderTextField: UITextField {
     open override func becomeFirstResponder() -> Bool {
         let result = super.becomeFirstResponder()
 
-        nonAnimatedLayout()
+        forceLayoutWithoutAnimation()
 
         if result {
             updateResponderStatusDependencies()
@@ -118,7 +118,7 @@ open class FloatingPlaceholderTextField: UITextField {
     open override func resignFirstResponder() -> Bool {
         let result = super.resignFirstResponder()
 
-        nonAnimatedLayout()
+        forceLayoutWithoutAnimation()
 
         if result {
             updateResponderStatusDependencies()
@@ -226,12 +226,12 @@ open class FloatingPlaceholderTextField: UITextField {
 
     private var _placeholder: String?
 
-    private var possibleNonErrorState: FloatingPlaceholderViewStyleState {
+    private var errorHiddenFallbackState: FloatingPlaceholderViewStyleState {
         return isFirstResponder ? .active : .inactive(enabled: isEnabled)
     }
 
     private var isErrorState: Bool {
-        if case .error(_) = styleState {
+        if case .error = styleState {
             return true
         }
 
@@ -269,7 +269,7 @@ open class FloatingPlaceholderTextField: UITextField {
 
     private func setError(_ error: String?, animated: Bool) {
 
-        if case .error(let existedError) = styleState, existedError == error {
+        if case .error(let currentError) = styleState, currentError == error {
             return
         }
         
@@ -283,7 +283,7 @@ open class FloatingPlaceholderTextField: UITextField {
 
         let animated = animated && (window != nil)
 
-        let state = error == nil ? possibleNonErrorState : .error(message: error)
+        let state = error == nil ? errorHiddenFallbackState : .error(message: error)
         floatingPlaceholderView.styleState = state
 
         if animated {
@@ -355,7 +355,7 @@ open class FloatingPlaceholderTextField: UITextField {
         }
     }
 
-    private func nonAnimatedLayout() {
+    private func forceLayoutWithoutAnimation() {
         // While UITextField switch active/inactive states,
         // it replaces UIFieldEditor <-> _UITextFieldContentView
         // to align this switch properly we need layout subviews
