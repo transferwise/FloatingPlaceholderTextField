@@ -7,7 +7,7 @@ import UIKit
 
 public final class FloatingPlaceholderView: UIView {
 
-    public init(styling: FloatingPlaceholderViewStyling, geometry: FloatingPlaceholderViewGeometry) {
+    public init(styling: FloatingPlaceholderViewAppearance, geometry: FloatingPlaceholderViewGeometry) {
         self.styling = styling
         self.geometry = geometry
         super.init(frame: .zero)
@@ -89,12 +89,12 @@ public final class FloatingPlaceholderView: UIView {
         }
     }
 
-    public var styleState: FloatingPlaceholderViewStyleState = .inactive(enabled: true) {
+    public var styleState: FloatingPlaceholderViewState = .inactive(enabled: true) {
         didSet {
             guard styleState != oldValue else {
                 return
             }
-            updateErrorLabel()
+            updateInlineMessageLabel()
             updateStyleStateDependencies()
         }
     }
@@ -104,8 +104,8 @@ public final class FloatingPlaceholderView: UIView {
             return styleState == .active
         }
         set {
-            if case .error = styleState {
-                // isActive don't reset error state
+            if case .emphasized = styleState {
+                // isActive don't reset emphasized state
                 return
             }
 
@@ -151,7 +151,7 @@ public final class FloatingPlaceholderView: UIView {
             return
         }
         placeholderLabel.frame = calculateTextLabelFrame(ignorePreferredMaxLayoutWidth: false)
-        errorLabel.frame = calculateErrorLabelFrame()
+        inlineMessageLabel.frame = calculateInlineMessageLabelFrame()
         underline.frame = calculateUnderlineFrame()
     }
 
@@ -168,9 +168,9 @@ public final class FloatingPlaceholderView: UIView {
         height += placeholderLabelHeight(isFloating: false)
         height += geometry.nonFloatingLabelToUnderlineOffset
         height += geometry.underlineHeight
-        if error != nil {
-            height += geometry.underlineToErrorLabelOffset
-            height += calculateErrorLabelSize(boundingWidth: size.width).height
+        if inlineMessage != nil {
+            height += geometry.underlineToInlineMessageLabelOffset
+            height += calculateInlineMessageLabelSize(boundingWidth: size.width).height
         }
         return CGSize(width: size.width, height: height)
     }
@@ -185,33 +185,30 @@ public final class FloatingPlaceholderView: UIView {
         return UIView(frame: .zero)
     }()
 
-    private lazy var errorLabel: UILabel = {
+    private lazy var inlineMessageLabel: UILabel = {
         let l = UILabel(frame: .zero)
-        l.font = self.styling.errorLabelFont()
-        l.textColor = self.styling.errorLabelColor()
+        l.font = self.styling.inlineMessageLabelFont
         l.numberOfLines = 0
         return l
     }()
 
-    private let styling: FloatingPlaceholderViewStyling
+    private let styling: FloatingPlaceholderViewAppearance
     private let geometry: FloatingPlaceholderViewGeometry
 
     private var isAnimating = false
 
     private var _isFloating = false
 
-    private var error: String? {
-        guard case .error(let errorMessage) = styleState else {
+    private var inlineMessage: String? {
+        guard case let .emphasized(emphasis) = styleState else {
             return nil
         }
-
-        return errorMessage
+        return emphasis.message
     }
 
-    private func updateErrorLabel() {
-
-        if let value = error, let lineHeight = geometry.floatingAndErrorLabelLineHeight {
-            let font = styling.errorLabelFont()
+    private func updateInlineMessageLabel() {
+        if let value = inlineMessage, let lineHeight = geometry.floatingAndInlineMessageLabelLineHeight {
+            let font = styling.inlineMessageLabelFont
             var attributes: [NSAttributedStringKey: Any] = [.font: font]
             let paragraph = NSMutableParagraphStyle()
             paragraph.lineSpacing = lineHeight - font.lineHeight
@@ -220,13 +217,17 @@ public final class FloatingPlaceholderView: UIView {
             let attributedString = NSMutableAttributedString(string: value)
             attributedString.setAttributes(attributes, range: NSRange(location: 0, length: attributedString.length))
 
-            errorLabel.attributedText = attributedString
+            inlineMessageLabel.attributedText = attributedString
         } else {
-            errorLabel.text = error
+            inlineMessageLabel.text = inlineMessage
         }
 
-        // Need this for show error animation
-        errorLabel.frame = calculateErrorLabelFrame()
+        if case let .emphasized(emphasis) = styleState {
+            inlineMessageLabel.textColor = emphasis.inlineMessageLabelColor
+        }
+
+        // Need this for show animation
+        inlineMessageLabel.frame = calculateInlineMessageLabelFrame()
 
         invalidateIntrinsicContentSize()
     }
@@ -236,15 +237,26 @@ public final class FloatingPlaceholderView: UIView {
         isUserInteractionEnabled = false
         addSubview(placeholderLabel)
         addSubview(underline)
-        addSubview(errorLabel)
+        addSubview(inlineMessageLabel)
         updateUnderlineColor()
     }
 
     private func updatePlaceholderLabel() {
-        placeholderLabel.font = styling.placeholderLabelFont(isFloating: isFloating)
-        placeholderLabel.textColor = styling.placeholderLabelColor(forState: styleState, isFloating: isFloating)
+        placeholderLabel.font = isFloating ? styling.floatingPlaceholderLabelFont : styling.placeholderLabelFont
+        placeholderLabel.textColor = isFloating ? currentStyle.floatingPlaceholderLabelColor : currentStyle.placeholderLabelColor
         placeholderLabel.text = placeholder
         setNeedsLayout()
+    }
+
+    private var currentStyle: FloatingPlaceholderViewStyle {
+        switch styleState {
+        case let .inactive(isEnabled):
+            return isEnabled ? styling.inactiveStyle : styling.disabledStyle
+        case .active:
+            return styling.activeStyle
+        case let .emphasized(emphasis):
+            return emphasis.style
+        }
     }
 
     private func updateStyleStateDependencies() {
@@ -253,7 +265,7 @@ public final class FloatingPlaceholderView: UIView {
     }
 
     private func updateUnderlineColor() {
-        underline.backgroundColor = styling.underlineColor(forState: styleState)
+        underline.backgroundColor = currentStyle.underlineColor
     }
 
     /**
@@ -264,7 +276,7 @@ public final class FloatingPlaceholderView: UIView {
     private func calculateTextLabelFrame(ignorePreferredMaxLayoutWidth: Bool) -> CGRect {
         let width: CGFloat
         if let text = placeholder {
-            let font = styling.placeholderLabelFont(isFloating: isFloating)
+            let font = isFloating ? styling.floatingPlaceholderLabelFont : styling.placeholderLabelFont
             let size = NSString(string: text).boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
                                                            options: [],
                                                            attributes: [.font: font],
@@ -304,24 +316,24 @@ public final class FloatingPlaceholderView: UIView {
         return CGRect(x: 0, y: y, width: bounds.width, height: geometry.underlineHeight)
     }
 
-    private func calculateErrorLabelFrame() -> CGRect {
-        let y = calculateUnderlineFrame().maxY + geometry.underlineToErrorLabelOffset
-        let size = calculateErrorLabelSize(boundingWidth: bounds.width)
+    private func calculateInlineMessageLabelFrame() -> CGRect {
+        let y = calculateUnderlineFrame().maxY + geometry.underlineToInlineMessageLabelOffset
+        let size = calculateInlineMessageLabelSize(boundingWidth: bounds.width)
         return CGRect(x: 0,
                       y: y,
                       width: size.width,
                       height: size.height)
     }
 
-    private func calculateErrorLabelSize(boundingWidth: CGFloat) -> CGSize {
-        if let error = error {
-            let font = styling.errorLabelFont()
-            let size = NSString(string: error).boundingRect(with: CGSize(width: boundingWidth, height: .greatestFiniteMagnitude),
+    private func calculateInlineMessageLabelSize(boundingWidth: CGFloat) -> CGSize {
+        if let inlineMessage = inlineMessage {
+            let font = styling.inlineMessageLabelFont
+            let size = NSString(string: inlineMessage).boundingRect(with: CGSize(width: boundingWidth, height: .greatestFiniteMagnitude),
                                                             options: [.usesLineFragmentOrigin],
                                                             attributes: [.font: font],
                                                             context: nil)
             let height: CGFloat
-            if let lineHeight = geometry.floatingAndErrorLabelLineHeight {
+            if let lineHeight = geometry.floatingAndInlineMessageLabelLineHeight {
                 height = ceil(round(size.height / font.lineHeight) * lineHeight)
             } else {
                 height = ceil(size.height)
@@ -343,7 +355,7 @@ public final class FloatingPlaceholderView: UIView {
 
     private func placeholderLabelHeight(isFloating: Bool) -> CGFloat {
         if isFloating {
-            if let lineHeight = geometry.floatingAndErrorLabelLineHeight {
+            if let lineHeight = geometry.floatingAndInlineMessageLabelLineHeight {
                 return lineHeight
             }
         } else {
@@ -351,6 +363,7 @@ public final class FloatingPlaceholderView: UIView {
                 return lineHeight
             }
         }
-        return ceil(styling.placeholderLabelFont(isFloating: isFloating).lineHeight)
+        let font = isFloating ? styling.floatingPlaceholderLabelFont : styling.placeholderLabelFont
+        return ceil(font.lineHeight)
     }
 }

@@ -14,17 +14,17 @@ open class FloatingPlaceholderTextField: UITextField {
 
     public let placeholderBehaviour: PlaceholderBehaviour
     public let placeholderGeometry: FloatingPlaceholderViewGeometry
-    public let placeholderStyling: FloatingPlaceholderViewStyling
+    public let placeholderAppearance: FloatingPlaceholderViewAppearance
 
-    open var hideErrorOnTextChange = true
+    open var deemphasisOnTextChange = true
 
     public init(placeholderBehaviour: PlaceholderBehaviour,
-                placeholderStyling: FloatingPlaceholderViewStyling,
+                placeholderAppearance: FloatingPlaceholderViewAppearance,
                 placeholderGeometry: FloatingPlaceholderViewGeometry) {
 
         self.placeholderBehaviour = placeholderBehaviour
         self.placeholderGeometry = placeholderGeometry
-        self.placeholderStyling = placeholderStyling
+        self.placeholderAppearance = placeholderAppearance
         super.init(frame: .zero)
         commonInit()
     }
@@ -33,39 +33,47 @@ open class FloatingPlaceholderTextField: UITextField {
         fatalError("\(#function) has not been implemented")
     }
 
-    // MARK: Error convenience API
-    open var error: String? {
-        guard case .error(let errorMessage) = styleState else {
+    // MARK: Emphasis convenience API
+
+    open var inlineMessage: String? {
+        guard case let .emphasized(emphasis) = floatingState else {
             return nil
         }
-        return errorMessage
+        return emphasis.message
     }
 
     @objc
-    open func showError(_ error: String, animated: Bool = UIView.areAnimationsEnabled) {
-        setError(error, animated: animated)
+    open func emphasize(inlineMessage: String?, color: UIColor, animated: Bool = UIView.areAnimationsEnabled) {
+        setEmphasis(
+            FloatingPlaceholderViewEmphasizedState(
+                message: inlineMessage,
+                style: FloatingPlaceholderViewStyle(
+                    placeholderLabelColor: color,
+                    floatingPlaceholderLabelColor: color,
+                    underlineColor: color
+                ),
+                inlineMessageLabelColor: color
+            ),
+            animated: animated
+        )
     }
 
-    open func hideError(animated: Bool = UIView.areAnimationsEnabled) {
-        setError(nil, animated: animated)
-        styleState = errorHiddenFallbackState
+    open func deemphasize(animated: Bool = UIView.areAnimationsEnabled) {
+        setEmphasis(nil, animated: animated)
+        floatingState = emphasisGoneFallbackState
     }
 
     // MARK: Style API
+
     open func updateStyleState() {
-        let styleState: FloatingPlaceholderViewStyleState
-
-        // if state is error - we should not change it
-        if case .error = self.styleState {
-            styleState = self.styleState
-        } else {
-            styleState = errorHiddenFallbackState
+        // if state is emphasis - we should not change it
+        if case .emphasized = self.floatingState {
+            return
         }
-
-        self.styleState = styleState
+        self.floatingState = emphasisGoneFallbackState
     }
 
-    open var styleState: FloatingPlaceholderViewStyleState  {
+    open var floatingState: FloatingPlaceholderViewState  {
         get {
             return floatingPlaceholderView.styleState
         }
@@ -75,7 +83,7 @@ open class FloatingPlaceholderTextField: UITextField {
     }
 
     public lazy var floatingPlaceholderView: FloatingPlaceholderView = {
-        let v = FloatingPlaceholderView(styling: self.placeholderStyling, geometry: self.placeholderGeometry)
+        let v = FloatingPlaceholderView(styling: self.placeholderAppearance, geometry: self.placeholderGeometry)
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
@@ -226,12 +234,12 @@ open class FloatingPlaceholderTextField: UITextField {
 
     private var _placeholder: String?
 
-    private var errorHiddenFallbackState: FloatingPlaceholderViewStyleState {
+    private var emphasisGoneFallbackState: FloatingPlaceholderViewState {
         return isFirstResponder ? .active : .inactive(enabled: isEnabled)
     }
 
-    private var isErrorState: Bool {
-        if case .error = styleState {
+    private var isEmphasized: Bool {
+        if case .emphasized = floatingState {
             return true
         }
 
@@ -252,8 +260,8 @@ open class FloatingPlaceholderTextField: UITextField {
     }
 
     private func setupAppearance() {
-        tintColor = placeholderStyling.placeholderLabelColor(forState: .active, isFloating: true)
-        font = placeholderStyling.placeholderLabelFont(isFloating: false)
+        tintColor = placeholderAppearance.activeStyle.floatingPlaceholderLabelColor
+        font = placeholderAppearance.placeholderLabelFont
     }
 
     // Need to fixate text rect during resize animations else text will be distorted
@@ -267,9 +275,8 @@ open class FloatingPlaceholderTextField: UITextField {
         frozenTextRect = nil
     }
 
-    private func setError(_ error: String?, animated: Bool) {
-
-        if case .error(let currentError) = styleState, currentError == error {
+    private func setEmphasis(_ emphasis: FloatingPlaceholderViewEmphasizedState?, animated: Bool) {
+        if case let .emphasized(currentEmphasis) = floatingState, currentEmphasis == emphasis {
             return
         }
         
@@ -283,7 +290,12 @@ open class FloatingPlaceholderTextField: UITextField {
 
         let animated = animated && (window != nil)
 
-        let state = error == nil ? errorHiddenFallbackState : .error(message: error)
+        let state: FloatingPlaceholderViewState
+        if let emphasis = emphasis {
+            state = .emphasized(emphasis)
+        } else {
+            state = emphasisGoneFallbackState
+        }
         floatingPlaceholderView.styleState = state
 
         if animated {
@@ -320,8 +332,8 @@ open class FloatingPlaceholderTextField: UITextField {
 
     private func updateTextDependencies(animated: Bool) {
         updatePlaceholderPosition(animated: animated)
-        if hideErrorOnTextChange {
-            hideError(animated: animated)
+        if deemphasisOnTextChange {
+            deemphasize(animated: animated)
         }
     }
 

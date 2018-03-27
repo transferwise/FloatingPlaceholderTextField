@@ -67,7 +67,7 @@ final class ViewController: UIViewController {
     }
     
     @objc private func handleShowErrorButtonPressed() {
-        textField.showError("Try TransferWise and send money with the real exchange rate!")
+        textField.emphasize(inlineMessage: "Try TransferWise and send money with the real exchange rate!", color: UIColor.red)
     }
 
     @objc private func handleDismissKeyboardButtonPressed() {

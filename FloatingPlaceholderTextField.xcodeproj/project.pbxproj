@@ -14,13 +14,14 @@
 		9B4F5C521E7D4D8E00991740 /* FloatingPlaceholderTextFieldTests_behaviourFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F5C511E7D4D8E00991740 /* FloatingPlaceholderTextFieldTests_behaviourFloat.swift */; };
 		9B4F5C541E7D4DF000991740 /* FloatingPlaceholderTextFieldTests_behaviourDisappear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F5C531E7D4DF000991740 /* FloatingPlaceholderTextFieldTests_behaviourDisappear.swift */; };
 		9B9F4A991E7D3C1F0061B1F1 /* FloatingPlaceholderViewGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F4A981E7D3C1F0061B1F1 /* FloatingPlaceholderViewGeometry.swift */; };
+		9BA5179B206A95DF00FD30F7 /* FloatingPlaceholderViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA5179A206A95DF00FD30F7 /* FloatingPlaceholderViewState.swift */; };
 		9BA858851E6A2A43002356D2 /* FloatingPlaceholderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA858841E6A2A43002356D2 /* FloatingPlaceholderTextField.swift */; };
 		9BACBC7C1E50830900AC0D5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BACBC7B1E50830900AC0D5F /* AppDelegate.swift */; };
 		9BACBC7E1E50830900AC0D5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BACBC7D1E50830900AC0D5F /* ViewController.swift */; };
 		9BACBC831E50830900AC0D5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BACBC821E50830900AC0D5F /* Assets.xcassets */; };
 		9BACBC861E50830900AC0D5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BACBC841E50830900AC0D5F /* LaunchScreen.storyboard */; };
 		9BACBC911E50830900AC0D5F /* FloatingPlaceholderTextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BACBC901E50830900AC0D5F /* FloatingPlaceholderTextFieldTests.swift */; };
-		9BC26AED1E7D23DA004A4645 /* FloatingPlaceholderViewStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC26AEC1E7D23DA004A4645 /* FloatingPlaceholderViewStyling.swift */; };
+		9BC26AED1E7D23DA004A4645 /* FloatingPlaceholderViewAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC26AEC1E7D23DA004A4645 /* FloatingPlaceholderViewAppearance.swift */; };
 		9BC26AF31E7D29BF004A4645 /* ShowcaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC26AEF1E7D29BF004A4645 /* ShowcaseTextField.swift */; };
 		9BCCA9511E943D9100C76716 /* StandardFloatingPlaceholderViewStyling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCCA9501E943D9100C76716 /* StandardFloatingPlaceholderViewStyling.swift */; };
 		FF85312EE4A5CAB4C809D60A /* Pods_FloatingPlaceholderTextFieldTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29155B91D3DA4F8C537302F1 /* Pods_FloatingPlaceholderTextFieldTests.framework */; };
@@ -45,6 +46,7 @@
 		9B4F5C511E7D4D8E00991740 /* FloatingPlaceholderTextFieldTests_behaviourFloat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextFieldTests_behaviourFloat.swift; sourceTree = "<group>"; };
 		9B4F5C531E7D4DF000991740 /* FloatingPlaceholderTextFieldTests_behaviourDisappear.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextFieldTests_behaviourDisappear.swift; sourceTree = "<group>"; };
 		9B9F4A981E7D3C1F0061B1F1 /* FloatingPlaceholderViewGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderViewGeometry.swift; sourceTree = "<group>"; };
+		9BA5179A206A95DF00FD30F7 /* FloatingPlaceholderViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderViewState.swift; sourceTree = "<group>"; };
 		9BA858841E6A2A43002356D2 /* FloatingPlaceholderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextField.swift; sourceTree = "<group>"; };
 		9BACBC781E50830800AC0D5F /* FloatingPlaceholderTextField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FloatingPlaceholderTextField.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BACBC7B1E50830900AC0D5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,7 +57,7 @@
 		9BACBC8C1E50830900AC0D5F /* FloatingPlaceholderTextFieldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FloatingPlaceholderTextFieldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BACBC901E50830900AC0D5F /* FloatingPlaceholderTextFieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderTextFieldTests.swift; sourceTree = "<group>"; };
 		9BACBC921E50830900AC0D5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9BC26AEC1E7D23DA004A4645 /* FloatingPlaceholderViewStyling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderViewStyling.swift; sourceTree = "<group>"; };
+		9BC26AEC1E7D23DA004A4645 /* FloatingPlaceholderViewAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPlaceholderViewAppearance.swift; sourceTree = "<group>"; };
 		9BC26AEF1E7D29BF004A4645 /* ShowcaseTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowcaseTextField.swift; sourceTree = "<group>"; };
 		9BCCA9501E943D9100C76716 /* StandardFloatingPlaceholderViewStyling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardFloatingPlaceholderViewStyling.swift; sourceTree = "<group>"; };
 		B03CD355DDD3B85F5ED0393E /* Pods-FloatingPlaceholderTextFieldTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FloatingPlaceholderTextFieldTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FloatingPlaceholderTextFieldTests/Pods-FloatingPlaceholderTextFieldTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -104,7 +106,8 @@
 				9BA858841E6A2A43002356D2 /* FloatingPlaceholderTextField.swift */,
 				9B12ECC51E5277D10051E117 /* FloatingPlaceholderView.swift */,
 				9B9F4A981E7D3C1F0061B1F1 /* FloatingPlaceholderViewGeometry.swift */,
-				9BC26AEC1E7D23DA004A4645 /* FloatingPlaceholderViewStyling.swift */,
+				9BC26AEC1E7D23DA004A4645 /* FloatingPlaceholderViewAppearance.swift */,
+				9BA5179A206A95DF00FD30F7 /* FloatingPlaceholderViewState.swift */,
 				9BCCA9501E943D9100C76716 /* StandardFloatingPlaceholderViewStyling.swift */,
 			);
 			path = Library;
@@ -206,7 +209,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = Transferwise;
 				TargetAttributes = {
 					9BACBC771E50830800AC0D5F = {
@@ -318,9 +321,10 @@
 				9B9F4A991E7D3C1F0061B1F1 /* FloatingPlaceholderViewGeometry.swift in Sources */,
 				9BA858851E6A2A43002356D2 /* FloatingPlaceholderTextField.swift in Sources */,
 				9BC26AF31E7D29BF004A4645 /* ShowcaseTextField.swift in Sources */,
+				9BA5179B206A95DF00FD30F7 /* FloatingPlaceholderViewState.swift in Sources */,
 				9BACBC7E1E50830900AC0D5F /* ViewController.swift in Sources */,
 				9BACBC7C1E50830900AC0D5F /* AppDelegate.swift in Sources */,
-				9BC26AED1E7D23DA004A4645 /* FloatingPlaceholderViewStyling.swift in Sources */,
+				9BC26AED1E7D23DA004A4645 /* FloatingPlaceholderViewAppearance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +372,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -376,7 +382,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -418,7 +428,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -426,7 +438,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -462,7 +478,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.transferwise.FloatingPlaceholderTextField;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -477,7 +492,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.transferwise.FloatingPlaceholderTextField;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -493,7 +507,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.transferwise.FloatingPlaceholderTextFieldTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FloatingPlaceholderTextField.app/FloatingPlaceholderTextField";
 			};
@@ -511,7 +524,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.transferwise.FloatingPlaceholderTextFieldTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FloatingPlaceholderTextField.app/FloatingPlaceholderTextField";
 			};

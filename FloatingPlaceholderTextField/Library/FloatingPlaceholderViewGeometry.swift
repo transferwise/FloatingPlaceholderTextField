@@ -11,7 +11,7 @@ public struct FloatingPlaceholderViewGeometry {
     
     public var topToFloatingLabelOffset: CGFloat
     
-    public var floatingAndErrorLabelLineHeight: CGFloat?
+    public var floatingAndInlineMessageLabelLineHeight: CGFloat?
     
     public var floatingToNonFloatingLabelOffset: CGFloat
     
@@ -19,7 +19,7 @@ public struct FloatingPlaceholderViewGeometry {
     
     public var nonFloatingLabelToUnderlineOffset: CGFloat
     
-    public var underlineToErrorLabelOffset: CGFloat
+    public var underlineToInlineMessageLabelOffset: CGFloat
     
     public var leftRightViewToTextOffset: CGFloat
     
@@ -34,11 +34,11 @@ public struct FloatingPlaceholderViewGeometry {
         
         self.underlineHeight = underlineHeight
         self.topToFloatingLabelOffset = topToFloatingLabelOffset
-        self.floatingAndErrorLabelLineHeight = floatingAndErrorLabelLineHeight
+        self.floatingAndInlineMessageLabelLineHeight = floatingAndErrorLabelLineHeight
         self.floatingToNonFloatingLabelOffset = floatingToNonFloatingLabelOffset
         self.nonFloatingLabelLineHeight = nonFloatingLabelLineHeight
         self.nonFloatingLabelToUnderlineOffset = nonFloatingLabelToUnderlineOffset
-        self.underlineToErrorLabelOffset = underlineToErrorLabelOffset
+        self.underlineToInlineMessageLabelOffset = underlineToErrorLabelOffset
         self.leftRightViewToTextOffset = leftRightViewToTextOffset
     }
     
