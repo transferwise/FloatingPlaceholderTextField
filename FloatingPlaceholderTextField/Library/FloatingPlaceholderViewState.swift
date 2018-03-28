@@ -8,13 +8,13 @@ import UIKit
 public struct FloatingPlaceholderViewEmphasizedState: Equatable {
 
     // We might only apply a style without showing a message.
-    let message: String?
+    public let message: String?
 
-    let style: FloatingPlaceholderViewStyle
+    public let style: FloatingPlaceholderViewStyle
 
-    let inlineMessageLabelColor: UIColor
+    public let inlineMessageLabelColor: UIColor
 
-    init(message: String?, style: FloatingPlaceholderViewStyle, inlineMessageLabelColor: UIColor) {
+    public init(message: String?, style: FloatingPlaceholderViewStyle, inlineMessageLabelColor: UIColor) {
         self.message = message
         self.style = style
         self.inlineMessageLabelColor = inlineMessageLabelColor
