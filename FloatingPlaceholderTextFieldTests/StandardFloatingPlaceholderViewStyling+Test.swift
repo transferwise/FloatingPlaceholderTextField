@@ -6,16 +6,15 @@
 import UIKit
 import FloatingPlaceholderTextField
 
-extension StandardFloatingPlaceholderViewStyling {
+extension StandardFloatingPlaceholderViewAppearance {
 
-    static let test = StandardFloatingPlaceholderViewStyling(activeColor: UIColor(hex: 0x00B9FF),
-                                                             inactiveColor: UIColor(hex: 0xA8AAAC),
-                                                             disabledColor: UIColor(hex: 0xD3D5D8),
-                                                             underlineColor: UIColor(hex: 0xE2E6E8),
-                                                             errorColor: UIColor(hex: 0xF53636),
-                                                             font: .systemFont(ofSize: 18),
-                                                             floatingFont: .systemFont(ofSize: 14),
-                                                             floatingInactiveColor: UIColor(hex: 0x6F8691))
+    static let test = StandardFloatingPlaceholderViewAppearance(activeColor: UIColor(hex: 0x00B9FF),
+                                                                inactiveColor: UIColor(hex: 0xA8AAAC),
+                                                                disabledColor: UIColor(hex: 0xD3D5D8),
+                                                                underlineColor: UIColor(hex: 0xE2E6E8),
+                                                                font: .systemFont(ofSize: 18),
+                                                                floatingFont: .systemFont(ofSize: 14),
+                                                                floatingInactiveColor: UIColor(hex: 0x6F8691))
 }
 
 extension UIColor {

@@ -8,7 +8,7 @@ import UIKit
 @IBDesignable
 class ShowcaseTextField: FloatingPlaceholderTextField {
 
-    private static let placeholderStyling: FloatingPlaceholderViewStyling = StandardFloatingPlaceholderViewStyling.showcase
+    private static let placeholderAppearance: FloatingPlaceholderViewAppearance = StandardFloatingPlaceholderViewAppearance.showcase
 
     private static let placeholderGeometry = FloatingPlaceholderViewGeometry.showcase
 
@@ -18,13 +18,13 @@ class ShowcaseTextField: FloatingPlaceholderTextField {
 
     init(placeholderBehaviour: PlaceholderBehaviour) {
         super.init(placeholderBehaviour: placeholderBehaviour,
-                   placeholderStyling: ShowcaseTextField.placeholderStyling,
+                   placeholderAppearance: ShowcaseTextField.placeholderAppearance,
                    placeholderGeometry: ShowcaseTextField.placeholderGeometry)
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(placeholderBehaviour: .float,
-                   placeholderStyling: ShowcaseTextField.placeholderStyling,
+                   placeholderAppearance: ShowcaseTextField.placeholderAppearance,
                    placeholderGeometry: ShowcaseTextField.placeholderGeometry)
     }
 
@@ -32,7 +32,7 @@ class ShowcaseTextField: FloatingPlaceholderTextField {
 
     override var isEnabled: Bool {
         didSet {
-            textColor = isEnabled ? .black : placeholderStyling.placeholderLabelColor(forState: .inactive(enabled: false), isFloating: false)
+            textColor = isEnabled ? .black : placeholderAppearance.disabledStyle.placeholderLabelColor
         }
     }
 

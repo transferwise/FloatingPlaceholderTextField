@@ -54,7 +54,11 @@ class FloatingPlaceholderTextFieldTests: FBSnapshotTestCase {
 
     func test_whenContainsText_hasError() {
         field.text = "E Corp"
-        field.showError("Sorry, but this company does not provide lowest possible cost", animated: false)
+        field.emphasize(
+            inlineMessage: "Sorry, but this company does not provide lowest possible cost",
+            color: UIColor(hex: 0xF53636),
+            animated: false
+        )
         verifyView()
     }
     
@@ -63,10 +67,10 @@ class FloatingPlaceholderTextFieldTests: FBSnapshotTestCase {
         FBSnapshotVerifyView(field, file: file, line: line)
     }
     
-    func test_whenTextChanges_givenHadError_errorIsHidden() {
+    func test_whenTextChanges_givenHadEmphasis_deemphasized() {
         field.text = "foo"
-        field.showError("error", animated: false)
+        field.emphasize(inlineMessage: "error", color: UIColor.red, animated: false)
         field.text = "bar"
-        XCTAssertNil(field.error)
+        XCTAssertNil(field.inlineMessage)
     }
 }
