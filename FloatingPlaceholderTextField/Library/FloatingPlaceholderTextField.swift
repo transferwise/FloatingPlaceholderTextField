@@ -389,11 +389,11 @@ open class FloatingPlaceholderTextField: UITextField {
         }
     }
 
-    /// Go via different state, text field add/removes subviews.
+    /// While text field changing states, it adds/removes subviews.
     /// Even text erea might be presented with 2 different views:
     /// * _UITextFieldContentView for not first responder state
-    /// * UIFieldEditor for responder state
-    /// This function allow check it this view present text or it any kind of accessory views
+    /// * UIFieldEditor for first responder state
+    /// This function allow check: does this view present text or it is any kind of accessory views
     private func isTextPresentation(_ view: UIView) -> Bool {
 
         guard let bakedViewClass = NSClassFromString("_UITextFieldContentView"),
