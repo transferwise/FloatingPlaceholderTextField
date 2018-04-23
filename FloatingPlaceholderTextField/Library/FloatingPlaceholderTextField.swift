@@ -5,6 +5,7 @@
 
 import UIKit
 
+@objcMembers
 open class FloatingPlaceholderTextField: UITextField {
 
     public enum PlaceholderBehaviour {
