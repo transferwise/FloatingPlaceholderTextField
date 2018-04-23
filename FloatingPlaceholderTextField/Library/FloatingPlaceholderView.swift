@@ -5,6 +5,7 @@
 
 import UIKit
 
+@objcMembers
 public final class FloatingPlaceholderView: UIView {
 
     public init(styling: FloatingPlaceholderViewAppearance, geometry: FloatingPlaceholderViewGeometry) {

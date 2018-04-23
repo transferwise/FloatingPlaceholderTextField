@@ -5,6 +5,7 @@
 
 import UIKit
 
+@objcMembers
 open class FloatingPlaceholderTextField: UITextField {
 
     public enum PlaceholderBehaviour {
@@ -89,6 +90,17 @@ open class FloatingPlaceholderTextField: UITextField {
     }()
 
     // MARK: - UIView
+
+    open override func addSubview(_ view: UIView) {
+        super.addSubview(view)
+
+        if isTextPresentation(view) {
+            UIView.performWithoutAnimation {
+                view.frame = textRect(forBounds: bounds)
+            }
+        }
+
+    }
 
     open override func layoutSubviews() {
         super.layoutSubviews()
@@ -375,5 +387,21 @@ open class FloatingPlaceholderTextField: UITextField {
             setNeedsLayout()
             layoutIfNeeded()
         }
+    }
+
+    /// While text field changing states, it adds/removes subviews.
+    /// Even text erea might be presented with 2 different views:
+    /// * _UITextFieldContentView for not first responder state
+    /// * UIFieldEditor for first responder state
+    /// This function allow check: does this view present text or it is any kind of accessory views
+    private func isTextPresentation(_ view: UIView) -> Bool {
+
+        guard let bakedViewClass = NSClassFromString("_UITextFieldContentView"),
+            let editingView = NSClassFromString("UIFieldEditor") else {
+                return false
+        }
+
+        return [bakedViewClass, editingView].contains { view.isKind(of: $0) }
+
     }
 }
